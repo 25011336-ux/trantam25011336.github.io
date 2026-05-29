@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hồ sơ năng lực số – Trần Ngọc Tâm - 25011336</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c1:#6C63FF;--c2:#FF6584;--c3:#43D9AD;--c4:#FFB830;--c5:#3B82F6;
+  --bg:#F0F4FF;--card:#fff;--txt:#1a1a2e;--muted:#6b7280;
+}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+.app{max-width:700px;margin:0 auto;padding:1.25rem}
+
+/* Header */
+.header{display:flex;flex-direction:column;align-items:stretch;gap:0.85rem;margin-bottom:1.5rem;padding:1rem 1.25rem;background:var(--card);border-radius:20px;border:0.5px solid rgba(108,99,255,.2);position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(108,99,255,.08)}
+.header::before{content:'';position:absolute;right:-20px;top:-20px;width:140px;height:140px;background:radial-gradient(circle,rgba(108,99,255,.1) 0%,transparent 70%)}
+.header-top{display:flex;align-items:center;gap:12px}
+.logo{width:52px;height:52px;border-radius:16px;flex-shrink:0;box-shadow:0 4px 12px rgba(108,99,255,.3);overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fff}
+.logo img,
+.logo svg{width:100%;height:100%;display:block}
+.header-note{padding:0.75rem 1rem;background:rgba(108,99,255,.05);border-radius:16px;border:0.5px solid rgba(108,99,255,.12);font-size:14px;color:var(--muted);text-align:center;line-height:1.5}
+.header h1{font-size:22px;font-weight:900;color:var(--c1);letter-spacing:-.3px}
+.header p{font-size:13px;color:var(--muted);font-weight:600}
+/* Tabs */
+.tabs{display:flex;gap:6px;margin-bottom:1rem;background:var(--card);padding:6px;border-radius:16px;border:0.5px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.tab{flex:1;padding:10px 4px;border:none;border-radius:11px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;background:transparent;color:var(--muted);transition:all .2s}
+.tab.active{background:var(--c1);color:#fff;box-shadow:0 4px 12px rgba(108,99,255,.3)}
+
+/* Sections */
+.section{display:none;animation:fadeIn .25s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Home */
+.profile-card{background:var(--card);border-radius:20px;padding:1.4rem;box-shadow:0 8px 22px rgba(108,99,255,.1);border:0.5px solid rgba(108,99,255,.12);margin-bottom:1rem}
+.profile-card h2{font-size:20px;font-weight:900;color:var(--c1);margin-bottom:1rem}
+.profile-item{display:flex;justify-content:space-between;align-items:center;padding:.85rem 0;border-bottom:1px solid rgba(108,99,255,.08)}
+.profile-item:last-child{border-bottom:none}
+.profile-label{font-size:14px;font-weight:800;color:var(--txt);text-transform:uppercase;letter-spacing:.4px}
+.profile-value{font-size:15px;font-weight:700;color:var(--muted);max-width:60%;text-align:right}
+.profile-item.long{display:block;padding:.45rem 0}
+.profile-item.long .profile-value{display:block;max-width:100%;text-align:left;margin-top:.15rem;line-height:1.7}
+
+.streak-row{display:flex;gap:10px;margin-bottom:1rem}
+.streak-card{flex:1;background:var(--card);border-radius:16px;padding:1rem;border:0.5px solid rgba(0,0,0,.06);text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.streak-num{font-size:24px;font-weight:900;color:var(--c1)}
+.streak-lbl{font-size:11px;color:var(--muted);font-weight:700;margin-top:2px}
+
+.topics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:1rem}
+.topic-card{background:var(--card);border-radius:18px;padding:1.1rem;border:0.5px solid rgba(0,0,0,.06);cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.topic-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.1)}
+.topic-card::after{content:'';position:absolute;bottom:-25px;right:-25px;width:80px;height:80px;border-radius:50%;opacity:.12}
+.topic-card[data-c="purple"]::after{background:#6C63FF}
+.topic-card[data-c="pink"]::after{background:#FF6584}
+.topic-card[data-c="teal"]::after{background:#43D9AD}
+.topic-card[data-c="amber"]::after{background:#FFB830}
+.topic-icon{font-size:30px;margin-bottom:8px;display:block}
+.topic-name{font-size:14px;font-weight:800;margin-bottom:4px}
+.topic-desc{font-size:11px;color:var(--muted);font-weight:600}
+.topic-progress{height:5px;background:#f0f0f0;border-radius:99px;margin-top:12px;overflow:hidden}
+.topic-bar{height:100%;border-radius:99px}
+.topic-card[data-c="purple"] .topic-name{color:#6C63FF}
+.topic-card[data-c="purple"] .topic-bar{background:linear-gradient(90deg,#6C63FF,#9c5cf9)}
+.topic-card[data-c="pink"] .topic-name{color:#FF6584}
+.topic-card[data-c="pink"] .topic-bar{background:linear-gradient(90deg,#FF6584,#ff8fa3)}
+.topic-card[data-c="teal"] .topic-name{color:#0d9373}
+.topic-card[data-c="teal"] .topic-bar{background:linear-gradient(90deg,#43D9AD,#6ee7c7)}
+.topic-card[data-c="amber"] .topic-name{color:#d97706}
+.topic-card[data-c="amber"] .topic-bar{background:linear-gradient(90deg,#FFB830,#ffd166)}
+
+.recent-card{background:var(--card);border-radius:16px;padding:1.1rem 1.25rem;border:0.5px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.recent-title{font-size:14px;font-weight:800;color:var(--c1);margin-bottom:.85rem}
+.recent-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0f0f0}
+.recent-item:last-child{border-bottom:none;padding-bottom:0}
+.recent-icon{font-size:20px;width:36px;height:36px;background:#f3f4f6;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.recent-text{flex:1;font-size:13px;font-weight:700}
+.recent-time{font-size:11px;color:var(--muted);font-weight:600}
+
+/* Quiz */
+.quiz-card{background:var(--card);border-radius:22px;padding:1.5rem;border:0.5px solid rgba(108,99,255,.15);box-shadow:0 4px 20px rgba(108,99,255,.08)}
+.quiz-meta{display:flex;align-items:center;gap:10px;margin-bottom:1.5rem}
+.quiz-badge{background:rgba(108,99,255,.1);color:var(--c1);font-size:11px;font-weight:800;padding:5px 12px;border-radius:99px}
+.quiz-progress{flex:1;height:6px;background:#e5e7eb;border-radius:99px;overflow:hidden}
+.quiz-prog-fill{height:100%;background:linear-gradient(90deg,var(--c1),#9c5cf9);border-radius:99px;transition:width .5s ease}
+.quiz-score{font-size:13px;font-weight:800;color:var(--c4)}
+.quiz-q{font-size:20px;font-weight:900;margin-bottom:.5rem;line-height:1.4;color:var(--txt)}
+.quiz-sub{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:1.25rem}
+.quiz-hint{background:rgba(67,217,173,.1);color:#0d9373;font-size:13px;font-weight:700;padding:10px 14px;border-radius:12px;margin-bottom:1.25rem;display:none;border:1px solid rgba(67,217,173,.3)}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem}
+.opt{border:2px solid #e5e7eb;background:var(--card);border-radius:14px;padding:.9rem;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--txt);display:flex;align-items:center;gap:10px;text-align:left}
+.opt:hover:not(:disabled){border-color:var(--c1);color:var(--c1);background:rgba(108,99,255,.04);transform:translateY(-1px)}
+.opt.correct{border-color:#43D9AD;background:rgba(67,217,173,.1);color:#0d9373}
+.opt.wrong{border-color:#FF6584;background:rgba(255,101,132,.08);color:#c0384f}
+.opt-letter{width:26px;height:26px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;transition:background .2s}
+.opt.correct .opt-letter{background:rgba(67,217,173,.3)}
+.opt.wrong .opt-letter{background:rgba(255,101,132,.2)}
+.quiz-actions{display:flex;gap:8px}
+
+/* Trang trí phần Dự án */
+.project-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.project-item {
+  background: var(--card);
+  border: 1px solid rgba(108,99,255,0.15);
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(108,99,255,0.05);
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--c1);
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.project-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(108,99,255,0.15);
+  border-color: var(--c1);
+  background: linear-gradient(145deg, #ffffff, #f8f7ff);
+}
+.btn-report {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--c1), #8b85ff);
+  color: #fff !important;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(108,99,255,0.3);
+  transition: all 0.2s;
+}
+.btn-report:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(108,99,255,0.4);
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <div class="logo">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="UEd Logo">
+          <rect width="120" height="120" fill="transparent"/>
+          <text x="60" y="70" text-anchor="middle" fill="#24A17B" font-family="Arial, sans-serif" font-size="44" font-weight="900">UEd</text>
+        </svg>
+      </div>
+      <div>
+        <h1>Hồ sơ năng lực số</h1>
+        <p>Trần Ngọc Tâm - 25011336</p>
+      </div>
+    </div>
+    <div class="header-note">Đại học Giáo dục – ĐHQG Hà Nội</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('home', this)">ℹ️ Giới thiệu</button>
+    <button class="tab" onclick="switchTab('quiz', this)">📁 Dự án</button>
+    <button class="tab" onclick="switchTab('visual',this)">📈 Tổng kết</button>
+  </div>
+
+  <!-- HOME -->
+  <div id="home" class="section active">
+    <div class="profile-card">
+      <h2>Thông tin cá nhân</h2>
+      <div class="profile-item"><span class="profile-label">Họ và tên</span><span class="profile-value">Trần Ngọc Tâm</span></div>
+      <div class="profile-item"><span class="profile-label">Mã sinh viên</span><span class="profile-value">25011336</span></div>
+      <div class="profile-item"><span class="profile-label">Ngày tháng năm sinh</span><span class="profile-value">08/09/2007</span></div>
+      <div class="profile-item"><span class="profile-label">Khoa</span><span class="profile-value">Khoa học Giáo dục và Khác</span></div>
+      <div class="profile-item"><span class="profile-label">Sở thích</span><span class="profile-value">Nấu ăn, nghe nhạc</span></div>
+    </div>
+    <div class="profile-card">
+      <h2>Mục tiêu học tập và định hướng tương lai</h2>
+      <div class="profile-item long"><span class="profile-label">Mục tiêu học tập</span><span class="profile-value">Sau một năm học tập và hoàn toàn thích nghi với môi trường đại học, mục tiêu hiện tại của em là duy trì và nâng cao phong độ học tập, phấn đấu đạt kết quả các môn cơ sở ngành từ Khá/Giỏi trở lên. Em đang tiếp tục đẩy mạnh việc trau dồi năng lực ngoại ngữ, thành thạo tin học văn phòng và tích cực tham gia các hoạt động ngoại khóa để hoàn thiện các kỹ năng mềm như làm việc nhóm, giao tiếp và quản lý thời gian.</span></div>
+      <div class="profile-item long"><span class="profile-label">Định hướng tương lai</span><span class="profile-value">Em hướng tới việc tập trung chuyên sâu vào kiến thức chuyên ngành trong những năm tới để tốt nghiệp đúng hạn với tấm bằng ưu tú. Đồng thời, em dự định tìm kiếm các cơ hội thực tập, tiếp cận môi trường doanh nghiệp sớm từ năm thứ ba để tích lũy kinh nghiệm thực tế. Đây sẽ là bước đệm vững chắc giúp em trở thành một nhân sự chuyên nghiệp, nhạy bén và tự tin gia nhập thị trường lao động sau khi ra trường.</span></div>
+    </div>
+    <div class="profile-card">
+      <h2>Mục tiêu của Hồ sơ năng lực</h2>
+      <div class="profile-item long"><span class="profile-value">Portfolio này được xây dựng với mục tiêu ghi lại trọn vẹn hành trình học tập và hoàn thiện các kỹ năng số thiết yếu của em sau năm học đầu tiên tại trường đại học. Đây không chỉ là nơi lưu trữ các sản phẩm cá nhân để dễ dàng truy cập và chia sẻ, mà còn là minh chứng rõ ràng cho việc làm chủ các công cụ công nghệ phục vụ học tập. Cụ thể, portfolio thể hiện năng lực của em qua quy trình thực hiện các kỹ năng cốt lõi: từ việc tối ưu hóa quản lý tệp tin, khai thác và đánh giá nguồn thông tin học thuật tin cậy, đến việc ứng dụng AI một cách có trách nhiệm và hiệu quả (thông qua kỹ nghệ viết prompt, hỗ trợ sáng tạo nội dung số). Đồng thời, đây cũng là nơi minh chứng cho khả năng hợp tác, phối hợp trực tuyến trong các dự án nhóm. Thông qua những kết quả thực tế được hệ thống hóa tại đây, mục tiêu tiếp theo của em là tiếp tục duy trì phong độ học tập, vững vàng bước vào các môn chuyên ngành và không ngừng nâng cao năng lực công nghệ. Portfolio này chính là bước đệm sớm giúp em định vị bản thân, sẵn sàng tìm kiếm các cơ hội thực tập thực tế từ năm thứ ba, hướng tới mục tiêu trở thành một nhân sự chuyên nghiệp, nhạy bén và có tư duy số vững vàng sau khi tốt nghiệp.</span></div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="section">
+    <div class="profile-card">
+      <h2>Dự án bài tập</h2>
+      <p> Danh sách sản phẩm bài tập Từ Bài 1 - Bài 6</p>
+      <div id="project-grid" class="project-grid">
+        <div class="project-item" onclick="showProjectDetails('project1')">💻 Bài tập 1 - Bài 1:<br>Máy tính và các thiết bị ngoại vi</div>
+        <div class="project-item" onclick="showProjectDetails('project2')">🔍 Bài tập 2 - Bài 2:<br>Khai thác dữ liệu và thông tin</div>
+        <div class="project-item" onclick="showProjectDetails('project3')">🤖 Bài tập 2 - Bài 3:<br>Tổng quan về trí tuệ nhân tạo</div>
+        <div class="project-item" onclick="showProjectDetails('project4')">🤝 Bài tập 3 - Bài 4:<br>Giao tiếp và hợp tác trong môi trường số</div>
+        <div class="project-item" onclick="showProjectDetails('project5')">✍️ Bài tập 2 - Bài 5:<br>Sáng tạo nội dung số</div>
+        <div class="project-item" onclick="showProjectDetails('project6')">🛡️ Bài tập 4 - Bài 6:<br>An toàn và liêm chính học thuật trong môi trường số</div>
+      </div>
+
+      <div id="projectDetailsContainer" class="profile-card" style="display:none; margin-top:1.5rem; border-top: 3px solid var(--c1);">
+        <h3 id="projectDetailsTitle" style="font-size:18px; font-weight:900; color:var(--c1); margin-bottom:0.8rem;"></h3>
+        <h4 style="font-size:15px; font-weight:800; color:var(--txt); margin-top:1rem; margin-bottom:0.3rem;">Mục tiêu</h4>
+        <p id="projectDetailsObjective" style="font-size:14px; color:var(--muted); margin-bottom:0.8rem;"></p>
+        <h4 style="font-size:15px; font-weight:800; color:var(--txt); margin-top:1rem; margin-bottom:0.3rem;">Quá trình thực hiện</h4>
+        <p id="projectDetailsProcess" style="font-size:14px; color:var(--muted); line-height:1.6;"></p>
+        <div id="projectProductSection" style="display:none;">
+          <h4 style="font-size:15px; font-weight:800; color:var(--txt); margin-top:1rem; margin-bottom:0.3rem;">Sản phẩm</h4>
+          <p id="projectDetailsProduct" style="font-size:14px; color:var(--muted); margin-bottom:0.8rem;"></p>
+        </div>
+        <div id="projectDetailsPdfLink" style="margin-top:1rem;"></div>
+        <button onclick="hideProjectDetails()" style="margin-top:1.5rem; padding:0.75rem 1.5rem; background:var(--c1); color:#fff; border:none; border-radius:12px; cursor:pointer; font-weight:700;">Đóng</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VISUAL -->
+  <div id="visual" class="section">
+    <div class="profile-card">
+      <h2>Trải nghiệm và cảm nhận cá nhân về quá trình thực hiện dự án Portfolio</h2>
+      <div class="profile-item long"><span class="profile-value">Xây dựng Portfolio này là một hành trình thú vị giúp em nhìn lại toàn bộ quá trình học tập. Việc chủ động lên ý tưởng, viết code và xây dựng nên một trang web hoàn chỉnh với sự hỗ trợ đắc lực từ AI giúp em nhận ra sự tiến bộ rõ rệt của bản thân, từ những bước đầu bỡ ngỡ đến khi biết cách làm chủ công nghệ. Quá trình này không chỉ giúp em nâng cao tư duy logic khi lập trình, mà còn rèn luyện kỹ năng phối hợp và khai thác hiệu quả các công cụ thông minh để tối ưu hóa sản phẩm.<br><br>Điều em cảm thấy tâm đắc nhất chính là việc hiện thực hóa thành công giao diện web theo đúng phong cách cá nhân nhờ sự đồng hành của AI như một "cộng sự" công nghệ. Dù gặp không ít khó khăn trong việc tối ưu hóa hiển thị trên các thiết bị và áp lực xử lý các lỗi kỹ thuật phát sinh, nhưng việc kiên trì tìm giải pháp và tận dụng AI để gỡ lỗi (debug) đã giúp em học hỏi được rất nhiều. Khép lại dự án, trang web Portfolio này chính là minh chứng cho khả năng thích ứng công nghệ, tinh thần tự học và là bệ phóng vững chắc để em tự tin bước tiếp vào tương lai.</span></div>
+    </div>
+
+    <div class="profile-card">
+      <h2>Kiến thức và kỹ năng đã học được</h2>
+      <div class="profile-item long"><span class="profile-value">Thông qua chuỗi bài tập và quá trình thực hiện dự án, em đã rèn luyện và tích lũy được nhiều kỹ năng nền tảng quan trọng, đặc biệt là năng lực thích ứng với công nghệ mới. Trước hết, em đã hình thành được tư duy quản lý dữ liệu một cách khoa học, biết cách khai thác và đánh giá nguồn thông tin học thuật một cách chuẩn xác.<br><br>Đáng chú ý, trong bối cảnh công nghệ phát triển, em đã phát triển mạnh mẽ kỹ năng sử dụng AI, cụ thể là làm chủ kỹ nghệ viết prompt tối ưu. Kỹ năng này đã trở thành công cụ hỗ trợ đắc lực giúp em nâng cao hiệu suất khi sáng tạo nội dung đa phương tiện và tăng cường khả năng hợp tác trực tuyến. Ấn tượng nhất là việc em đã biết cách ứng dụng linh hoạt AI vào quá trình lập trình và xây dựng trang web; sự đồng hành của AI như một "cộng sự" thông minh đã giúp em tối ưu hóa các đoạn code, nhanh chóng phát hiện lỗi (debug) và hiện thực hóa các ý tưởng giao diện một cách hiệu quả.<br><br>Quan trọng hơn cả, việc học tập và thực hành này không chỉ dừng lại ở yếu tố kỹ thuật, mà còn giúp em nâng cao nhận thức và định hình tư duy sâu sắc về liêm chính học thuật trong kỷ nguyên AI, đảm bảo việc sử dụng công nghệ luôn đi đôi với sự trung thực và trách nhiệm.</span></div>
+    </div>
+
+    <div class="profile-card">
+      <h2>Điểm tâm đắc nhất và những thách thức khi xây dựng Portfolio</h2>
+      <div class="profile-item long"><span class="profile-value"><strong>Điểm tâm đắc:</strong> Một trong những điểm khiến em cảm thấy tâm đắc nhất trong suốt hành trình này là đã tự hào tạo ra được một không gian lưu trữ trực quan, sinh động. Trang web Portfolio không chỉ đơn thuần là nơi chứa đựng các sản phẩm, mà còn là một minh chứng rõ ràng và thuyết phục nhất cho năng lực số cũng như sự trưởng thành của bản thân em qua từng giai đoạn học tập. <br><br><strong>Thách thức:</strong> Tuy nhiên, dự án cũng mang lại cho em không ít thử thách lớn, đặc biệt là việc đắn đo lựa chọn cách thức trình bày nội dung sao cho thật logic, khoa học và tối ưu hóa trải nghiệm. Quá trình thực hiện đòi hỏi rất nhiều thời gian và công sức khi có vô số thư mục lớn nhỏ cần phải sắp xếp ngăn nắp. Bên cạnh đó, em đã phải chủ động tìm hiểu từ nhiều nguồn khác nhau để học cách sử dụng các công cụ lập trình, phối hợp với AI code, cũng như cách khởi tạo server cho website. Đây chính là giai đoạn đòi hỏi em phải đầu tư nhiều tâm huyết và sự tỉ mỉ nhất để đảm bảo chất lượng tối ưu cho cả trang web lẫn các sản phẩm, dự án bài tập của mình.</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Tab switching ──
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showProjectDetails(id) {
+  const projects = {
+    project1: { t: `Bài tập 1 - Bài 1: Máy tính và các thiết bị ngoại vi`, o: `Rèn luyện kỹ năng tạo, đổi tên, sao chép, di chuyển, xóa tệp tin và thư mục một cách thành thạo trên hệ điều hành Windows.`, p: `Bước đầu em chủ động xây dựng một bộ khung lưu trữ ngay từ thư mục gốc, phân chia rạch ròi thành bốn mảng lớn: Học tập, Cá nhân, Công việc và Giải trí. Việc định vị các "hộp chứa" lớn này giúp em khoanh vùng dữ liệu ngay lập tức, đảm bảo cuộc sống cá nhân và việc trường lớp không bị chồng chéo lên nhau. Tiếp theo em thực hiện việc sắp xếp chi tiết bên trong các thư mục lớn. Em sẽ sắp xếp theo hướng từ rộng đến hẹp, từ tệp lớn đến các tệp bé. Các thư mục được phân chia một cách cụ thể cho từng danh mục tài liệu, và đặt tên một cách nhất quán để dễ dàng kiểm soát và tìm kiếm nếu cần. Và bước phân loại tài liệu theo định dạng ở tầng cuối cùng, ví dụ với môn khoa học quản lý, em triệt để loại bỏ thói quen lưu trữ tùy tiện bằng cách thiết lập bốn danh mục lưu trữ chuyên biệt: Ảnh, bài tập gửi, Tài liệu và video. Việc tuân thủ nghiêm ngặt nguyên tắc phân cấp và đồng bộ tên gọi này không chỉ giúp em giải quyết triệt để tình trạng thất lạc file, mà còn biến máy tính thành một trợ thủ đắc lực, giúp việc tra cứu thông tin phục vụ thi cử diễn ra chỉ trong vòng vài cú click chuột.`, pdf: `bao_cao1.pdf`, product: ``, link: `sp1.pdf` },
+    project2: { t: `Bài tập 2 - Bài 2: Khai thác dữ liệu và thông tin`, o: `Phát triển kỹ năng tìm kiếm và đánh giá thông tin học thuật từ các nguồn đáng tin cậy`, p: `Khi nhận được yêu cầu nghiên cứu về chủ đề "Kỹ năng số của sinh viên đại học trong kỷ nguyên công nghệ 4.0", em đã bắt tay bắt đầu bằng việc xác định rõ tầm quan trọng và sự cần thiết của năng lực số đối với người học. Tiếp theo, em truy cập vào các cơ sở dữ liệu học thuật uy tín như Google Scholar cũng như hệ thống thư viện của trường đại học để tìm kiếm bài báo khoa học. Tại đây, em tiến hành nhập các từ khóa chuyên ngành và vận dụng linh hoạt các toán tử tìm kiếm nâng cao (như AND, OR, NOT, dấu ngoặc kép) để lọc ra các tài liệu chính xác nhất. Sau khi đã thu thập được các tài liệu cần thiết, em tiến hành lập bảng đánh giá nguồn tin để sàng lọc kỹ lưỡng mức độ tin cậy, tính cập nhật và danh tiếng của tác giả, từ đó lựa chọn ra danh mục tài liệu tham khảo chất lượng nhất cho bài nghiên cứu`, pdf: `bao_cao2.pdf`, product: ``, link: `sp2.pdf` },
+    project3: { t: `Bài tập 2 - Bài 3: Tổng quan về trí tuệ nhân tạo`, o: `Phát triển kỹ năng viết prompt hiệu quả để tận dụng tối đa khả năng của các mô hình ngôn ngữ lớn trong học tập`, p: `Dự án được triển khai theo một quy trình tuần tự và có kiểm soát để đánh giá hiệu quả của kỹ thuật Prompt Engineering. Ban đầu, quá trình bắt đầu bằng việc khảo sát các câu lệnh cơ bản, vốn chỉ là những lệnh đơn thiếu tiêu chí đánh giá, khiến AI tự chọn thông tin ngẫu nhiên và cho ra kết quả tóm tắt bề mặt. Từ những hạn chế đó, bước tiếp theo là tiến hành cải tiến câu lệnh bằng cách thiết lập rõ ràng các giới hạn về định dạng và độ dài, giúp kiểm soát tốt hình thức trình bày và thu về kết quả gọn gàng, dễ nắm bắt. Cuối cùng, để tối ưu hóa tối đa kết quả đầu ra, dự án tiến tới bước lập trình các prompt nâng cao bằng cách kết hợp chặt chẽ giữa việc định vị vai trò chuyên gia và xây dựng quy trình tư duy. Quá trình thực hiện thực tế này đã chứng minh rằng việc áp dụng các ràng buộc kỹ thuật không chỉ dừng lại ở thay đổi câu chữ, mà thực chất là can thiệp sâu vào thuật toán xử lý ngôn ngữ, kiểm soát độ hỗn loạn nội tại của mô hình để đảm bảo kết quả trả về luôn có tính ổn định,  logic và nhất quán cao nhất.`, pdf: `bao_cao3.pdf`, product: ``, link: `sp3.pdf` },
+    project4: { t: `Bài tập 3 - Bài 4: Giao tiếp và hợp tác trong môi trường số`, o: `Thành thạo các công cụ hợp tác trực tuyến và thể hiện năng lực quản lý, điều phối cá nhân trong dự án nhóm`, p: `Khi bước vào giai đoạn thực hiện dự án nhóm, em và các thành viên đã quyết định lựa chọn nền tảng Trello để làm "trung tâm điều phối" kỹ thuật số chính nhằm trực quan hóa công việc và theo dõi tiến độ theo thời gian thực. Em trực tiếp thiết lập bảng công việc và chia thành các cột trạng thái trực quan bao gồm: Việc cần làm, Đang làm, Kiểm duyệt, Hoàn thành, sau đó tạo từng thẻ nhiệm vụ riêng cho các thành viên. Để hỗ trợ vận hành trung tâm điều phối này, nhóm sử dụng Zalo làm kênh liên lạc nhanh nhằm thông báo nhắc nhở, thảo luận gấp và duy trì mạch trao đổi thông tin liên tục về các nhiệm vụ trên Trello. Song song với đó, nhóm em ứng dụng Google Docs để cùng quản trị nội dung cộng tác và soạn thảo văn bản. Qua việc sử dụng các tính năng "Đề xuất", "Bình luận" thời gian thực và theo dõi lịch sử phiên bản từ các tài liệu được liên kết, em không chỉ rèn luyện được thói quen xây dựng cấu trúc tài liệu bài bản mà còn học được cách tiếp nhận phản biện khách quan để tối ưu hóa quy trình làm việc nhóm.`, pdf: `bao_cao4.pdf`, product: ``, link: `sp4.pdf` },
+    project5: { t: `Bài tập 2 - Bài 5: Sáng tạo nội dung số`, o: `Thành thạo việc sử dụng các công cụ AI tạo sinh để hỗ trợ quá trình sáng tạo nội dung số.`, p: `Đối với bài tập sáng tạo nội dung số, em đóng vai trò điều phối để xây dựng một bài thuyết trình chuyên sâu mang chủ đề "Hành trình xanh: Kiến trúc bền vững và Đô thị thông minh tương lai" hướng đến các kiến trúc sư trẻ và sinh viên ngành quy hoạch. Quá trình triển khai được em thực hiện thông qua việc phối hợp nhịp nhàng 3 công cụ AI tạo sinh phổ biến. Đầu tiên, em dùng Google Gemini để lên cấu trúc luận điểm lý thuyết và phát triển kịch bản chi tiết cho 10 slide. Tiếp theo, em ứng dụng DALL-E để tạo ra các hình ảnh minh họa độc bản và dùng Canva AI để thiết kế slide thuyết trình. Trong suốt quá trình, em luôn chú ý điều chỉnh các định kiến văn hóa số của thuật toán phương Tây và kiểm soát nghiêm ngặt tính trung thực học thuật, đảm bảo cấu trúc lập luận cốt lõi hoàn toàn xuất phát từ tư duy độc lập của bản thân.`, pdf: `bao_cao5.pdf`, product: ``, link: `sp5.pdf` },
+    project6: { t: `Bài tập 4 - Bài 6: An toàn và liêm chính học thuật trong môi trường số`, o: `Phát triển kỹ năng sử dụng AI có trách nhiệm và đạo đức trong học tập và nghiên cứu`, p: `Để hoàn thiện chuỗi bài tập, em dành thời gian nghiên cứu sâu về các chính sách, định hướng chiến lược tích hợp công nghệ số và AI của ĐHQGHN nói chung cũng như Trường Đại học Giáo dục nói riêng. Sau khi thấu hiểu các yêu cầu về trách nhiệm học thuật, em đã tự đúc kết và xây dựng cho bản thân một bộ quy tắc gồm 6 nguyên tắc cá nhân khi đồng hành cùng trí tuệ nhân tạo. Bộ nguyên tắc này nhấn mạnh vào việc kiểm chứng thông tin, trích dẫn minh bạch nguồn hỗ trợ, chủ động phân tích chọn lọc thay vì sao chép nguyên bản và tuyệt đối tuân thủ liêm chính học thuật. Cuối cùng, em chuyển hóa toàn bộ nội dung nghiên cứu này thành một sản phẩm Infographic trực quan, thể hiện rõ nét những việc "Nên" và "Không nên" làm để làm cẩm nang sử dụng AI có trách nhiệm.`, pdf: `bao_cao6.pdf`, product: ``, link: `sp6.pdf` }
+  };
+  const data = projects[id];
+  if (data) {
+    document.getElementById('projectDetailsTitle').innerText = data.t;
+    document.getElementById('projectDetailsObjective').innerText = data.o;
+    document.getElementById('projectDetailsProcess').innerText = data.p;
+
+    // Cập nhật và hiển thị/ẩn phần sản phẩm
+    const prodSection = document.getElementById('projectProductSection');
+    const prodText = document.getElementById('projectDetailsProduct');
+    if (data.product && data.product.trim() !== "") {
+      prodText.innerText = data.product;
+      prodSection.style.display = 'block';
+    } else {
+      prodSection.style.display = 'none';
+    }
+
+    const pdfBox = document.getElementById('projectDetailsPdfLink');
+    if (data.pdf) {
+      pdfBox.innerHTML = `<a href="${data.pdf}" target="_blank" class="btn-report">📄 Xem báo cáo</a>`;
+    } else {
+      pdfBox.innerHTML = '';
+    }
+    if (data.link) {
+      pdfBox.innerHTML += ` <a href="${data.link}" target="_blank" class="btn-report" style="background: linear-gradient(135deg, var(--c3), #24A17B); margin-left: 10px;">🚀 Sản phẩm cuối cùng</a>`;
+    }
+
+    document.getElementById('projectDetailsContainer').style.display = 'block';
+    document.getElementById('project-grid').style.display = 'none';
+    // Cuộn lên đầu phần chi tiết để dễ quan sát
+    document.getElementById('projectDetailsContainer').scrollIntoView({ behavior: 'smooth' });
+  }
+}
+function hideProjectDetails() {
+  document.getElementById('projectDetailsContainer').style.display = 'none';
+  document.getElementById('project-grid').style.display = 'grid';
+}
+</script>
+</body>
+</html>
